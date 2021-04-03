@@ -11,8 +11,8 @@ module.exports = async function (symbol) {
 
     const data = {
         symbol: symbol,
-        price: findStockPrice,
-        dividend: findDividend
+        price: Number(findStockPrice),
+        dividend: Number(findDividend)
     }
     return await data
 };
