@@ -2,7 +2,7 @@ const getStock = require("../functions/getStockData.js");
 
 module.exports = (app) => {
     app.get('/', (req, res) => {
-        res.send("Hello World");
+        res.send("Welcome to my stock API");
     });
 
     app.get('/getStock/:tickerSymbol', async function (req, res) {
