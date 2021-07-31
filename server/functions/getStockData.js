@@ -6,7 +6,7 @@ module.exports = async function (symbol) {
     const text = await res.text();
     const $ = cheerio.load(text);
     const findStockPrice = $('.intraday__price .value').text();
-    const findDividend = $('.list--kv li small:contains("Yield")').next('.primary').text();
+    const findDividend = $('.list--kv li small:contains("Yield")').next('.primary').text().slice(0, -1);
 
     const data = {
         symbol: symbol,
