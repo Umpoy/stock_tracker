@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import List from './components/List';
 import axios from 'axios';
 
-const stockArray = []
-
 const App = () => {
-    const [ticker, setTicker] = useState('AAPL');
+    const [ticker, setTicker] = useState('');
+    const [stocks, setStock] = useState([]);
     const [result, setResults] = useState([]);
     useEffect(() => {
         const searchStock = async () => {
@@ -23,35 +23,28 @@ const App = () => {
 
     const handleOnSubmit = e => {
         e.preventDefault();
-        result.quantity = 0
-        stockArray.push(result);
+        result.quantity = 1
+        // stocks.push(result);
+        setStock(stocks.concat(result))
         setTicker('');
-        console.log(stockArray)
-
     }
     const showStockInfo = () => {
+        if (ticker.length == 0) {
+            return (
+                <p>Search stock by ticker symbol</p>
+            )
+        }
         if (result.price > 0 && ticker) {
             return (
                 <p>{result.symbol} is at {result.price} with a {result.dividend}% dividend</p>
             )
         } else {
             return (
-                <p>Empty or invalid input</p>
+                <p>Sorry that stock either doesn't exist or doesn't have a dividend</p>
             )
         }
     }
 
-    const mappedStocks = stockArray.map(item => {
-        return (
-            <div className="stock" key={item.symbol}>
-                <div className="ticker">{item.symbol}</div>
-                <div className="price">{item.price}</div>
-                <div className="dividend">{item.dividend}%</div>
-                <div className="quanity">{item.quantity}</div>
-                <div className="howmuchmake">{(item.price * (item.dividend / 100))}</div>
-            </div>
-        )
-    })
     return (
         <div className="app">
             <div className="ticker-search">
@@ -64,10 +57,11 @@ const App = () => {
                 </form>
                 {showStockInfo()}
             </div>
-
-            <div className="stock-list">
-                {mappedStocks}
+            <div className="assets">
+                <h2>Networth: </h2>
+                <h2>Yearly dividend: </h2>
             </div>
+            <List stocks={stocks} />
         </div>
     )
 }
