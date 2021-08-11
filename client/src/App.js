@@ -5,7 +5,7 @@ import axios from 'axios';
 const App = () => {
     const [ticker, setTicker] = useState('');
     const [stocks, setStock] = useState([]);
-    const [result, setResults] = useState([]);
+    const [result, setResults] = useState({});
     useEffect(() => {
         const searchStock = async () => {
             const { data } = await axios.get(`http://localhost:5000/getStock/${ticker}`);
@@ -24,7 +24,6 @@ const App = () => {
     const handleOnSubmit = e => {
         e.preventDefault();
         result.quantity = 1
-        // stocks.push(result);
         setStock(stocks.concat(result))
         setTicker('');
     }
@@ -45,8 +44,17 @@ const App = () => {
         }
     }
 
+    const updateStockQuantity = (e, stockTicker) => {
+        const foundStock = stocks.find(({ symbol }) => symbol === stockTicker);
+        foundStock.quantity = e;
+        const index = stocks.findIndex(({ symbol }) => symbol === stockTicker);
+        const newState = [...stocks];
+        newState[index] = foundStock;
+        setStock(newState);
+    }
+
     return (
-        <div className="app">
+        <div div className="app" >
             <div className="ticker-search">
                 <form onSubmit={handleOnSubmit}>
                     <input
@@ -61,7 +69,7 @@ const App = () => {
                 <h2>Networth: </h2>
                 <h2>Yearly dividend: </h2>
             </div>
-            <List stocks={stocks} />
+            <List stocks={stocks} updateQuantity={updateStockQuantity} />
         </div>
     )
 }
