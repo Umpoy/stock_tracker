@@ -5,21 +5,32 @@ import axios from 'axios';
 const App = () => {
     const [ticker, setTicker] = useState('');
     const [stocks, setStock] = useState([]);
+    const [networth, setNetworth] = useState(0);
     const [result, setResults] = useState({});
     useEffect(() => {
         const searchStock = async () => {
             const { data } = await axios.get(`http://localhost:5000/getStock/${ticker}`);
-            setResults(data)
+            setResults(data);
         }
         const debounce = setTimeout(() => {
             if (ticker) {
                 searchStock();
+
+
             }
         }, 500);
         return () => {
             clearTimeout(debounce);
         }
     }, [ticker]);
+    useEffect(() => {
+        let total = 0
+
+        stocks.forEach(item => {
+            total += item.quantity * item.price;
+        })
+        setNetworth(total);
+    }, [stocks])
 
     const handleOnSubmit = e => {
         e.preventDefault();
@@ -53,6 +64,8 @@ const App = () => {
         setStock(newState);
     }
 
+
+
     return (
         <div div className="app" >
             <div className="ticker-search">
@@ -66,7 +79,7 @@ const App = () => {
                 {showStockInfo()}
             </div>
             <div className="assets">
-                <h2>Networth: </h2>
+                <h2>Networth: {networth}</h2>
                 <h2>Yearly dividend: </h2>
             </div>
             <List stocks={stocks} updateQuantity={updateStockQuantity} />
