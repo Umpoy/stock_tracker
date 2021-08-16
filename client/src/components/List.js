@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 export default ({ stocks, updateQuantity }) => {
 
     const mappedStocks = stocks.map(item => {
@@ -12,7 +13,7 @@ export default ({ stocks, updateQuantity }) => {
                     onChange={(e) => { updateQuantity(e.target.value, item.symbol) }}
                     value={item.quantity}
                 />
-                <td className="stock-equaity">{item.price * item.quantity}</td>
+                <td className="stock-equaity">{(item.price * item.quantity).toFixed(2)}</td>
                 <td className="stock-dividend">{item.dividend}%</td>
                 <td className="stock-passive-income">{(item.price * (item.dividend / 100)).toFixed(2) * item.quantity}</td>
 
@@ -22,15 +23,19 @@ export default ({ stocks, updateQuantity }) => {
     return (
         <div className="stock-list">
             <table style={{ width: '100%' }}>
-                <tr>
-                    <th>Stock</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Equaity</th>
-                    <th>Dividend</th>
-                    <th>Passive Income</th>
-                </tr>
-                {mappedStocks}
+                <thead>
+                    <tr>
+                        <th style={{ width: (100 / 6) + '%' }}>Stock</th>
+                        <th style={{ width: (100 / 6) + '%' }}>Price</th>
+                        <th style={{ width: (100 / 6) + '%' }}>Quantity</th>
+                        <th style={{ width: (100 / 6) + '%' }}>Equaity</th>
+                        <th style={{ width: (100 / 6) + '%' }}>Dividend</th>
+                        <th style={{ width: (100 / 6) + '%' }}>Passive Income</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {mappedStocks}
+                </tbody>
             </table>
         </div>
     )

@@ -6,6 +6,7 @@ const App = () => {
     const [ticker, setTicker] = useState('');
     const [stocks, setStock] = useState([]);
     const [networth, setNetworth] = useState(0);
+    const [passiveIncome, setPassiveIncome] = useState(0);
     const [result, setResults] = useState({});
     useEffect(() => {
         const searchStock = async () => {
@@ -15,8 +16,6 @@ const App = () => {
         const debounce = setTimeout(() => {
             if (ticker) {
                 searchStock();
-
-
             }
         }, 500);
         return () => {
@@ -24,12 +23,15 @@ const App = () => {
         }
     }, [ticker]);
     useEffect(() => {
-        let total = 0
+        let total = 0;
+        let payout = 0;
 
         stocks.forEach(item => {
             total += item.quantity * item.price;
+            payout += (item.price * (item.dividend / 100)).toFixed(2) * item.quantity
         })
         setNetworth(total);
+        setPassiveIncome(payout);
     }, [stocks])
 
     const handleOnSubmit = e => {
@@ -64,10 +66,8 @@ const App = () => {
         setStock(newState);
     }
 
-
-
     return (
-        <div div className="app" >
+        <div div className="app">
             <div className="ticker-search">
                 <form onSubmit={handleOnSubmit}>
                     <input
@@ -80,7 +80,7 @@ const App = () => {
             </div>
             <div className="assets">
                 <h2>Networth: {networth}</h2>
-                <h2>Yearly dividend: </h2>
+                <h2>Yearly dividend: {passiveIncome}</h2>
             </div>
             <List stocks={stocks} updateQuantity={updateStockQuantity} />
         </div>
