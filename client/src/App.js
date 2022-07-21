@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import List from './components/List';
+import StockList from './components/List';
 import axios from 'axios';
 
 const App = () => {
@@ -41,7 +41,7 @@ const App = () => {
         setTicker('');
     }
     const showStockInfo = () => {
-        if (ticker.length == 0) {
+        if (ticker.length === 0) {
             return (
                 <p>Search stock by ticker symbol</p>
             )
@@ -82,7 +82,7 @@ const App = () => {
                 <h2>Networth: {networth}</h2>
                 <h2>Yearly dividend: {passiveIncome}</h2>
             </div>
-            <List stocks={stocks} updateQuantity={updateStockQuantity} />
+            <StockList stocks={stocks} updateQuantity={updateStockQuantity} />
         </div>
     )
 }

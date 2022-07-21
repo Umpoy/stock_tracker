@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default ({ stocks, updateQuantity }) => {
+export const StockList = ({ stocks, updateQuantity }) => {
 
     const mappedStocks = stocks.map(item => {
         return (
