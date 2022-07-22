@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export const StockList = ({ stocks, updateQuantity }) => {
+const StockList = ({ stocks, updateQuantity }) => {
 
     const mappedStocks = stocks.map(item => {
         return (
@@ -40,3 +40,5 @@ export const StockList = ({ stocks, updateQuantity }) => {
         </div>
     )
 }
+
+export default StockList;
