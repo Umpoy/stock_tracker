@@ -1,4 +1,5 @@
 import React from "react";
+import Stock from "./Stock";
 
 const StockList = ({ stocks, updateQuantity, deleteStock }) => {
   const headers = [
@@ -14,35 +15,14 @@ const StockList = ({ stocks, updateQuantity, deleteStock }) => {
     return <th style={{ width: 100 / 6 + "%" }}>{item}</th>;
   });
 
-  const mappedStocks = stocks.map((item) => {
+  const mappedStocks = stocks.map((stock) => {
     return (
-      <tr key={item.symbol}>
-        <td className="stock-ticker">{item.symbol}</td>
-        <td className="stock-price">{item.price}</td>
-        <input
-          type="number"
-          onChange={(e) => {
-            updateQuantity(e.target.value, item.symbol);
-          }}
-          value={item.quantity}
-        />
-        <td className="stock-equaity">
-          {(item.price * item.quantity).toFixed(2)}
-        </td>
-        <td className="stock-dividend">{item.dividend}%</td>
-        <td className="stock-passive-income">
-          {(item.price * (item.dividend / 100)).toFixed(2) * item.quantity}
-        </td>
-        <td>
-          <button
-            onClick={() => {
-              deleteStock(item.symbol);
-            }}
-          >
-            Delete
-          </button>
-        </td>
-      </tr>
+      <Stock
+        key={stock.symbol}
+        stock={stock}
+        updateQuantity={updateQuantity}
+        deleteStock={deleteStock}
+      />
     );
   });
 
