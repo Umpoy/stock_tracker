@@ -6,7 +6,7 @@ const StockList = ({ stocks, updateQuantity, deleteStock }) => {
     "Stock",
     "Price",
     "Quantity",
-    "Equaity",
+    "Equity",
     "Dividend",
     "Income",
   ];
@@ -15,7 +15,7 @@ const StockList = ({ stocks, updateQuantity, deleteStock }) => {
     return <div>{item}</div>;
   });
 
-  const mappedStocks = stocks.map((stock) => {
+  const mappedStocks = stocks.reverse().map((stock) => {
     return (
       <Stock
         key={stock.symbol}
@@ -27,8 +27,8 @@ const StockList = ({ stocks, updateQuantity, deleteStock }) => {
   });
 
   return (
-    <div className="pt-3">
-      <div className="grid grid-cols-7 gap-4 border-b border-white">
+    <div className="pt-3 bg-white shadow-card p-3 rounded">
+      <div className="grid grid-cols-7 gap-4 border-b border-white text-center">
         {mapHeaders}
       </div>
       <div>{mappedStocks}</div>

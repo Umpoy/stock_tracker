@@ -1,6 +1,6 @@
 body {
-  background-image: radial-gradient(circle at top left, #94ff61, #61d859 50%);
+  /* background-image: radial-gradient(circle at top left, #94ff61, #61d859 50%); */
+  background-color: #f2f4f7;
   background-repeat: no-repeat;
-  color: white;
   min-height: 100vh;
 }

@@ -2,27 +2,36 @@ import React from "react";
 
 const Stock = ({ stock, updateQuantity, deleteStock }) => {
   return (
-    <div key={stock.symbol} className="grid grid-cols-7 my-3 gap-4">
-      <div className="stock-ticker uppercase">{stock.symbol}</div>
-      <div className="stock-price">{stock.price}</div>
+    <div
+      key={stock.symbol}
+      className="grid grid-cols-7 my-3 gap-4 border-b border-[#ggg] py-2.5 text-center"
+    >
+      <div className="flex items-center justify-center stock-ticker uppercase">
+        {stock.symbol}
+      </div>
+      <div className="flex items-center justify-center stock-price">
+        {stock.price}
+      </div>
       <input
         type="number"
-        className="text-black"
+        className="flex items-center justify-center text-black border-black border text-center bg-slate-200"
         onChange={(e) => {
           updateQuantity(e.target.value, stock.symbol);
         }}
         value={stock.quantity}
       />
-      <div className="stock-equaity">
+      <div className="flex items-center justify-center stock-equaity">
         {(stock.price * stock.quantity).toFixed(2)}
       </div>
-      <div className="stock-dividend">{stock.dividend}%</div>
-      <div className="stock-passive-income">
+      <div className="flex items-center justify-center stock-dividend">
+        {stock.dividend}%
+      </div>
+      <div className="flex items-center justify-center stock-passive-income">
         {(stock.price * (stock.dividend / 100) * stock.quantity).toFixed(2)}
       </div>
-      <div>
+      <div className="flex items-center justify-center">
         <button
-          className="border border-black py-1 px-3"
+          className="bg-red-600 py-1 px-3 rounded text-white"
           onClick={() => {
             deleteStock(stock.symbol);
           }}
