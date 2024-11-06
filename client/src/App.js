@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Search from "./components/Search";
 import StockList from "./components/List";
 import Networth from "./components/Networth";
 import axios from "axios";
@@ -61,7 +62,7 @@ const App = () => {
   useEffect(() => {
     const searchStock = async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/getStock/${ticker}`
+        `${process.env.REACT_APP_API_URL}${ticker}`
       );
       setResults(data);
     };
@@ -89,19 +90,12 @@ const App = () => {
 
   return (
     <div className="app p-4 max-w-[1200px]">
-      <div className="ticker-search">
-        <form onSubmit={handleOnSubmit}>
-          <input
-            type="text"
-            value={ticker}
-            className="text-black"
-            onChange={(e) => {
-              setTicker(e.target.value);
-            }}
-          />
-        </form>
-        {showStockInfo()}
-      </div>
+      <Search
+        ticker={ticker}
+        setTicker={setTicker}
+        handleOnSubmit={handleOnSubmit}
+        showStockInfo={showStockInfo}
+      />
       <Networth networth={networth} passiveIncome={passiveIncome} />
       <StockList
         stocks={stocks}

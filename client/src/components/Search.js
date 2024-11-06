@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-const Search = () => {
-    const [search, setSearch] = useState('');
-
-    return (
-        <form onSubmit={handleOnSubmit(search)}>
-            <input
-                type="text"
-                value={search}
-                onChange={e => { setSearch(e.target.value) }}
-            />
-        </form>
-    )
-}
-
+const Search = ({ ticker, setTicker, handleOnSubmit, showStockInfo }) => {
+  return (
+    <div className="ticker-search">
+      <form onSubmit={handleOnSubmit}>
+        <input
+          type="text"
+          value={ticker}
+          className="text-black"
+          onChange={(e) => {
+            setTicker(e.target.value);
+          }}
+        />
+      </form>
+      {showStockInfo()}
+    </div>
+  );
+};
 
 export default Search;
