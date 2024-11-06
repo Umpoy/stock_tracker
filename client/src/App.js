@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import StockList from "./components/List";
+import Networth from "./components/Networth";
 import axios from "axios";
 
 const App = () => {
@@ -100,10 +101,7 @@ const App = () => {
         </form>
         {showStockInfo()}
       </div>
-      <div className="assets">
-        <h2>Networth: {networth}</h2>
-        <h2>Yearly dividend: {passiveIncome}</h2>
-      </div>
+      <Networth networth={networth} passiveIncome={passiveIncome} />
       <StockList
         stocks={stocks}
         updateQuantity={updateStockQuantity}
