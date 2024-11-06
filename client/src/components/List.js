@@ -5,14 +5,14 @@ const StockList = ({ stocks, updateQuantity, deleteStock }) => {
   const headers = [
     "Stock",
     "Price",
-    "quantity",
+    "Quantity",
     "Equaity",
     "Dividend",
-    "Pasive Income",
+    "Income",
   ];
 
   const mapHeaders = headers.map((item) => {
-    return <th style={{ width: 100 / 6 + "%" }}>{item}</th>;
+    return <div>{item}</div>;
   });
 
   const mappedStocks = stocks.map((stock) => {
@@ -27,13 +27,11 @@ const StockList = ({ stocks, updateQuantity, deleteStock }) => {
   });
 
   return (
-    <div className="stock-list">
-      <table style={{ width: "100%" }}>
-        <thead>
-          <tr>{mapHeaders}</tr>
-        </thead>
-        <tbody>{mappedStocks}</tbody>
-      </table>
+    <div className="pt-3">
+      <div className="grid grid-cols-7 gap-4 border-b border-white">
+        {mapHeaders}
+      </div>
+      <div>{mappedStocks}</div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 const Networth = ({ networth, passiveIncome }) => {
   return (
-    <div className="assets">
+    <div className="assets grid grid-flow-col py-3">
       <h2>Networth: ${networth.toFixed(2)}</h2>
       <h2>Yearly dividend: ${passiveIncome.toFixed(2)}</h2>
       <h2>Paycheck: ${(passiveIncome / 26).toFixed(2)}</h2>

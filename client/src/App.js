@@ -88,12 +88,13 @@ const App = () => {
   }, [stocks]);
 
   return (
-    <div className="app">
+    <div className="app p-4 max-w-[1200px]">
       <div className="ticker-search">
         <form onSubmit={handleOnSubmit}>
           <input
             type="text"
             value={ticker}
+            className="text-black"
             onChange={(e) => {
               setTicker(e.target.value);
             }}
