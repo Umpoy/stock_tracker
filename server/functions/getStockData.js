@@ -11,7 +11,6 @@ module.exports = async function (symbol) {
     .next()
     .text()
     .match(/\((\d+\.\d+)%\)/);
-  console.log(findDividend);
   if (findDividend) {
     dividend = findDividend[1];
   } else {
