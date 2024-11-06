@@ -4,18 +4,27 @@ import axios from "axios";
 
 const App = () => {
   const [ticker, setTicker] = useState("");
-  const [stocks, setStock] = useState([]);
+  const [stocks, setStock] = useState(() => {
+    const savedStocks = localStorage.getItem("stocks");
+    return savedStocks ? JSON.parse(savedStocks) : [];
+  });
   const [networth, setNetworth] = useState(0);
   const [passiveIncome, setPassiveIncome] = useState(0);
   const [result, setResults] = useState({});
+
+  useEffect(() => {
+    localStorage.setItem("stocks", JSON.stringify(stocks));
+  }, [stocks]);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
     if (!result.price) return;
     result.quantity = 1;
-    setStock([result, ...stocks]);
+    const updatedStocks = [result, ...stocks];
+    setStock(updatedStocks);
     setTicker("");
   };
+
   const showStockInfo = () => {
     if (ticker.length === 0) {
       return <p>Search stock by ticker symbol</p>;
@@ -44,7 +53,6 @@ const App = () => {
   };
 
   const deleteStock = (stockTicker) => {
-    console.log(stocks);
     const updatedList = stocks.filter((stock) => stock.symbol !== stockTicker);
     setStock(updatedList);
   };
@@ -79,7 +87,7 @@ const App = () => {
   }, [stocks]);
 
   return (
-    <div div className="app">
+    <div className="app">
       <div className="ticker-search">
         <form onSubmit={handleOnSubmit}>
           <input
@@ -104,4 +112,5 @@ const App = () => {
     </div>
   );
 };
+
 export default App;
