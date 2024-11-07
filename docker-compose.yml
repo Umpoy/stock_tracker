@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  client:
+    restart: always
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+    depends_on:
+      - server
+
+  server:
+    container_name: stockapp
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    ports:
+      - "5005:5005"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

@@ -8,33 +8,20 @@ Utilized local storage to securely maintain user data, including stock names and
 
 ## Usage Instructions
 
-### Prerequisites
+### Requirements
 
 - Node.JS 18 or higher
-- cd into `client` and `server` directory and run :
+- Docker
+
+### Docker
+
+Start docker container:
 
 ```bash
-npm install
+docker-compose up --build
 ```
 
-- cd into `client` and create a `.env` file and paste:
-
-```bash
-REACT_APP_NODE_API=http://localhost:5001 # or whatever port you want to run the server on
-```
-
-### Instructions
-
-#### Run on One Port
-
-- cd into `server` and run `nodemon` or `node index.js`
-- open browser to `http://localhost:5001` or whichever port you use to run the server
-
-#### Run on Two Ports
-
-- cd into `server` and run `nodemon` or `node index.js`
-- open new terminal and cd into `client` and run `npm run start`
-- your default browser should open up with the application running or you can go to `http://localhost:3000`
+Open [http://localhost:80](http://localhost:80) to view app
 
 ## To-Do List:
 
