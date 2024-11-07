@@ -13,6 +13,10 @@ const App = () => {
   const [networth, setNetworth] = useState(0);
   const [passiveIncome, setPassiveIncome] = useState(0);
   const [result, setResults] = useState({});
+  const [searchText, setSearchText] = useState({
+    text: "Search stock by ticker symbol",
+    style: "",
+  });
 
   useEffect(() => {
     localStorage.setItem("stocks", JSON.stringify(stocks));
@@ -20,29 +24,24 @@ const App = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    const isStockExists = stocks.some(
+      (stock) => stock.symbol === result.symbol
+    );
+
+    if (isStockExists) {
+      setResults({});
+      setSearchText({
+        text: `${result.symbol} is already added. Please search again`,
+        style: "animate-buzz",
+      });
+      return;
+    }
     if (!result.price) return;
     result.quantity = 1;
     const updatedStocks = [result, ...stocks];
     setStock(updatedStocks);
     setTicker("");
-  };
-
-  const showStockInfo = () => {
-    if (ticker.length === 0) {
-      return <p>Search stock by ticker symbol</p>;
-    }
-    if (result.price > 0 && ticker) {
-      return (
-        <p>
-          {result.symbol} is at {result.price} with a {result.dividend}%
-          dividend
-        </p>
-      );
-    } else {
-      return (
-        <p>Sorry that stock either doesn't exist or doesn't have a dividend</p>
-      );
-    }
+    setResults({});
   };
 
   const updateStockQuantity = (e, stockTicker) => {
@@ -60,17 +59,40 @@ const App = () => {
   };
 
   useEffect(() => {
+    if (ticker.length === 0) {
+      setSearchText({ text: "Search stock by ticker symbol" });
+    } else {
+      setSearchText({ text: "Loading..." });
+    }
+
     const searchStock = async () => {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API_URL}${ticker}`
-      );
-      setResults(data);
+      try {
+        const { data } = await axios.get(
+          `${process.env.REACT_APP_NODE_API}/getStock/${ticker}`
+        );
+        setResults(data);
+        if (data.price > 0) {
+          setSearchText({
+            text: `${data.symbol} is at ${data.price} with a ${result.dividend}% dividend`,
+          });
+        } else {
+          setSearchText({
+            text: "Sorry, that stock either doesn't exist or doesn't have a dividend.",
+          });
+        }
+      } catch {
+        setSearchText({
+          text: "Sorry, that stock either doesn't exist or doesn't have a dividend.",
+        });
+      }
     };
+
     const debounce = setTimeout(() => {
       if (ticker) {
         searchStock();
       }
     }, 1000);
+
     return () => {
       clearTimeout(debounce);
     };
@@ -89,12 +111,12 @@ const App = () => {
   }, [stocks]);
 
   return (
-    <div className="app p-4 max-w-[1200px]">
+    <div className="app p-4 max-w-[1200px] mx-auto">
       <Search
         ticker={ticker}
         setTicker={setTicker}
         handleOnSubmit={handleOnSubmit}
-        showStockInfo={showStockInfo}
+        searchText={searchText}
       />
       <Networth networth={networth} passiveIncome={passiveIncome} />
       <StockList

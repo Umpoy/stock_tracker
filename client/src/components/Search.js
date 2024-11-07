@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Search = ({ ticker, setTicker, handleOnSubmit, showStockInfo }) => {
+const Search = ({ ticker, setTicker, handleOnSubmit, searchText }) => {
   return (
     <div className="ticker-search">
       <form onSubmit={handleOnSubmit}>
@@ -13,7 +13,7 @@ const Search = ({ ticker, setTicker, handleOnSubmit, showStockInfo }) => {
           }}
         />
       </form>
-      {showStockInfo()}
+      <p className={searchText.style}>{searchText.text}</p>
     </div>
   );
 };
