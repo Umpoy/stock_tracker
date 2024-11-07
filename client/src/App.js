@@ -73,7 +73,7 @@ const App = () => {
         setResults(data);
         if (data.price > 0) {
           setSearchText({
-            text: `${data.symbol} is at ${data.price} with a ${result.dividend}% dividend`,
+            text: `${data.symbol} is at ${data.price} with a ${data.dividend}% dividend`,
           });
         } else {
           setSearchText({

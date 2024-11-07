@@ -1,12 +1,15 @@
-const express = require('express');
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
 const app = express();
-const cors = require('cors');
-const port = 5000;
+const port = 5001;
 
 app.use(cors());
 
-require('./app/routes.js')(app);
+require("./app/routes.js")(app);
+
+app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.listen(port, () => {
-    console.log(`Port running on localhost: ${port}`);
-})
+  console.log(`Port running on localhost: ${port}`);
+});
