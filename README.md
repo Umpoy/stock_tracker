@@ -12,6 +12,11 @@ Utilized local storage to securely maintain user data, including stock names and
 
 - Node.JS 18 or higher
 - Docker
+- `.env` inside of `client` directory with
+
+```bash
+REACT_APP_NODE_API=http://localhost:5005
+```
 
 ### Docker
 
