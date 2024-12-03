@@ -123,6 +123,7 @@ const App = () => {
         stocks={stocks}
         updateQuantity={updateStockQuantity}
         deleteStock={deleteStock}
+        setStock={setStock}
       />
     </div>
   );
