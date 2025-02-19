@@ -5,7 +5,7 @@ module.exports = async function (symbol) {
   const res = await fetch(`https://finance.yahoo.com/quote/${symbol}/`);
   const text = await res.text();
   const $ = cheerio.load(text);
-  const stockPrice = $(".livePrice span").text();
+  const stockPrice = $('span[data-testid="qsp-price"]').text();
   let dividend = 0;
   const findDividend = $("span[title='Forward Dividend & Yield']")
     .next()
