@@ -17,7 +17,7 @@ services:
     container_name: stockapp
     build:
       context: .
-      dockerfile: server/Dockerfile
+      dockerfile: Dockerfile
     ports:
       - "5005:5005"
     networks:
